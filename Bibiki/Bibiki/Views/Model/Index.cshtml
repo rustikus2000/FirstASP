@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Model>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-light">Список моделей</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Model" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square"></i> &nbsp; Добавить модель
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+
+
+<table class="table table-hover" style="width:100%">
+    <thead>
+        <tr class="table-dark">
+            <th>
+                @Html.ActionLink("Сгрупировать", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                Модель
+            </th>
+        </tr>
+       
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            
+            @if (obj.IsActive == false)
+                {
+                    <tr class="table-active">
+                        <td width="50%">
+                            @obj.Brand.Name
+                        </td>
+                        <td width="50%">
+                            @obj.Name
+                        </td>
+                        <td>
+                            <div class ="w-25 btn-group" role="group">
+                                <a asp-controller="Model" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary"><i class="bi bi-pencil"></i> Изменить</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            @if (obj.IsActive == true)
+            {
+                <tr class="table-dark">
+                    <td width="50%">
+                        @obj.Brand.Name
+                    </td>
+                    <td width="50%">
+                        @obj.Name
+                    </td>
+                    <td>
+                        <div class="w-25 btn-group" role="group">
+                            <a asp-controller="Model" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary"><i class="bi bi-pencil"></i> Изменить</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>
